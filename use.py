@@ -7,20 +7,20 @@ from keras.layers import Dense, LSTM
 
 # parameter set
 
-wavfile = 'output/cut_wav/0.wav'
+wavfile = 'data/output/cut_wav/190408194137.wav'
 wr = wave.open(wavfile, "rb")
 ch = wr.getnchannels()
 width = wr.getsampwidth()
 fr = wr.getframerate()
 fn = wr.getnframes()
-
+print(fn)
 model = load_model('data/model/envSoundCreater')
 
 N = 256
-steps = 128
+steps = 512
 batch = 32
-start = 416500
-frames = 200
+start = 0
+frames = 44000
 samples = 32
 
 origin = wr.readframes(wr.getnframes())
@@ -30,6 +30,15 @@ wr.close()
 X = np.frombuffer(data, dtype="int16")
 left = X[::2]
 right = X[1::2]
+
+def get_dataset(file, samples, span):
+    wavfile = 'data/output/cut_wav/' + file + '.wav'
+    wr = wave.open(wavfile, "rb")
+    origin = wr.readframes(wr.getnframes())
+    data = origin[:samples * span * 4]
+    wr.close()
+    X = np.frombuffer(data, dtype="int16")/ 32768.0
+    return X[::2], X[1::2]
 
 # function definition
 def fourier (x, n, w):
