@@ -8,7 +8,7 @@ from keras.models import Sequential
 from keras.layers import Dense, LSTM
 
 def get_dataset(file, samples, span):
-    wavfile = '/output/cut_wav/' + file + '.wav'
+    wavfile = '/output/' + file + '.wav'
     wr = wave.open(wavfile, "rb")
     origin = wr.readframes(wr.getnframes())
     data = origin[:samples * span * 4]

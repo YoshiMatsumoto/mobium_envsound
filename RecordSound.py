@@ -45,7 +45,7 @@ def MakeWavFile(FileName, Record_Seconds):
 def main():
     now = datetime.datetime.now()
     name = '{0:%y%m%d%H%M%S}.wav'.format(now)
-    MakeWavFile(name, 10)
+    MakeWavFile(name, 90)
 
 if __name__ == "__main__":
     #WAVファイル作成, 引数は（ファイル名, 録音する秒数）
